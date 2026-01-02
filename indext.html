@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRANGER Community | Arma 3 Milsim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+        :root {
+            --arma-olive: #4b5320;
+            --arma-dark: #1a1a1a;
+            --arma-accent: #eab308;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #0f1110;
+            color: #e5e7eb;
+        }
+
+        .font-military {
+            font-family: 'Black Ops One', cursive;
+        }
+
+        .camo-pattern {
+            background-color: #0f1110;
+            background-image: 
+                radial-gradient(circle at 100% 100%, rgba(75, 83, 32, 0.1) 0, rgba(75, 83, 32, 0.1) 12px, transparent 12px),
+                radial-gradient(circle at 0% 0%, rgba(50, 50, 50, 0.1) 0, rgba(50, 50, 50, 0.1) 12px, transparent 12px);
+            background-size: 40px 40px;
+        }
+
+        /* Glitch effect for titles */
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .clip-path-slant {
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        .server-status-dot {
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+    </style>
+</head>
+<body class="camo-pattern overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/90 border-b border-yellow-600/30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i data-lucide="crosshair" class="h-8 w-8 text-yellow-500"></i>
+                    <span class="font-military text-2xl tracking-wider text-white">STRANGER<span class="text-yellow-500">COMMUNITY</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-yellow-500 transition-colors px-3 py-2 rounded-md text-lg font-medium">HQ</a>
+                        <a href="#about" class="hover:text-yellow-500 transition-colors px-3 py-2 rounded-md text-lg font-medium">Intel</a>
+                        <a href="#server" class="hover:text-yellow-500 transition-colors px-3 py-2 rounded-md text-lg font-medium">Server Status</a>
+                        <a href="#mods" class="hover:text-yellow-500 transition-colors px-3 py-2 rounded-md text-lg font-medium">Modpack</a>
+                        <a href="https://discord.gg/example" target="_blank" class="bg-yellow-600 hover:bg-yellow-500 text-black px-6 py-2 rounded-sm font-bold skew-x-[-12deg] transition-all transform hover:scale-105">
+                            <span class="skew-x-[12deg] inline-block">ENLIST NOW</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-black/95 border-b border-yellow-600/30" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:text-yellow-500">HQ</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-yellow-500">Intel</a>
+                <a href="#server" class="block px-3 py-2 rounded-md text-base font-medium hover:text-yellow-500">Status</a>
+                <a href="https://discord.gg/example" class="block px-3 py-2 text-yellow-500 font-bold">JOIN DISCORD</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1542317854-f9596aa56fd9?q=80&w=2070&auto=format&fit=crop" alt="Arma 3 Battlefield" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f1110] via-[#0f1110]/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMyIvPgo8L3N2Zz4=')]"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
+            <div class="inline-flex items-center gap-2 border border-yellow-600/50 bg-black/50 backdrop-blur-sm px-4 py-1 rounded-full text-yellow-500 mb-6 animate-fade-in-down">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-semibold tracking-widest uppercase">Operations Active</span>
+            </div>
+            
+            <h1 class="font-military text-5xl md:text-7xl lg:text-9xl mb-4 text-white drop-shadow-2xl tracking-tighter" data-text="STRANGER">
+                STRANGER
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-300 mb-8 tracking-[0.2em] uppercase">
+                Arma 3 <span class="text-yellow-600">Semi-Realism</span> Unit
+            </h2>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Sri Lanka's premier tactical community. Established 2021. 
+                We prioritize immersion, teamwork, and strategic gameplay without the burden of excessive bureaucracy.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <a href="https://discord.gg/example" class="w-full md:w-auto bg-yellow-600 hover:bg-yellow-500 text-black font-black text-xl py-4 px-10 clip-path-slant transition-transform hover:translate-y-[-2px]">
+                    DEPLOY NOW
+                </a>
+                <a href="#about" class="w-full md:w-auto border border-gray-500 hover:border-white text-gray-300 hover:text-white font-bold text-xl py-4 px-10 clip-path-slant transition-colors backdrop-blur-sm">
+                    READ BRIEFING
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Server Status Section -->
+    <section id="server" class="py-20 bg-[#141615] border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Status Panel -->
+                <div class="bg-black/40 border border-gray-800 p-8 rounded-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i data-lucide="server" class="w-32 h-32 text-yellow-600"></i>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                        <span class="w-3 h-3 bg-green-500 rounded-full server-status-dot"></span>
+                        LIVE STATUS
+                    </h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Server Name</p>
+                            <p class="text-xl font-mono text-yellow-500">[STRG] Official Operations Server</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">IP Address</p>
+                                <div class="flex items-center gap-2">
+                                    <code class="bg-black px-3 py-1 text-green-400 rounded font-mono border border-gray-700">play.strangerlk.com</code>
+                                    <button class="text-gray-400 hover:text-white" onclick="copyIP()" title="Copy IP">
+                                        <i data-lucide="copy" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Port</p>
+                                <code class="bg-black px-3 py-1 text-gray-300 rounded font-mono border border-gray-700">2302</code>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 border-t border-gray-800 pt-6">
+                            <div class="text-center">
+                                <p class="text-3xl font-bold text-white">42<span class="text-gray-600 text-lg">/64</span></p>
+                                <p class="text-xs text-gray-500 mt-1 uppercase">Players</p>
+                            </div>
+                            <div class="text-center border-l border-gray-800">
+                                <p class="text-3xl font-bold text-white">56<span class="text-sm text-gray-500">ms</span></p>
+                                <p class="text-xs text-gray-500 mt-1 uppercase">Ping</p>
+                            </div>
+                            <div class="text-center border-l border-gray-800">
+                                <p class="text-lg font-bold text-white truncate pt-2">Altis</p>
+                                <p class="text-xs text-gray-500 mt-1 uppercase">Map</p>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-yellow-700 to-yellow-500 h-full rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TS3 Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="font-military text-4xl text-white mb-4">COMMUNICATIONS</h2>
+                        <p class="text-gray-400 text-lg mb-6">
+                            We utilize TeamSpeak 3 for high-fidelity radio simulation using Task Force Arrowhead Radio (TFAR). 
+                            Join the lobby before deployment.
+                        </p>
+                        
+                        <div class="flex items-center gap-4 bg-[#1a1c1b] p-4 border-l-4 border-blue-600">
+                            <div class="bg-blue-600/20 p-3 rounded-full">
+                                <i data-lucide="mic" class="w-6 h-6 text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">TeamSpeak 3</h4>
+                                <p class="text-gray-400 font-mono text-sm">ts.strangerlk.com</p>
+                            </div>
+                            <button class="ml-auto bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 text-sm font-bold rounded">
+                                CONNECT
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 bg-[#1a1c1b] p-4 border-l-4 border-indigo-500">
+                        <div class="bg-indigo-500/20 p-3 rounded-full">
+                            <i data-lucide="message-square" class="w-6 h-6 text-indigo-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Discord</h4>
+                            <p class="text-gray-400 text-sm">Announcements, mod support, and chat.</p>
+                        </div>
+                        <a href="#" class="ml-auto bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 text-sm font-bold rounded">
+                            JOIN
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Features -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-[#0f1110] to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-military text-4xl md:text-5xl text-white mb-4">UNIT INTELLIGENCE</h2>
+                <div class="w-24 h-1 bg-yellow-600 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-[#161817] p-8 border border-gray-800 hover:border-yellow-600/50 transition-colors group">
+                    <div class="bg-yellow-600/10 w-16 h-16 rounded flex items-center justify-center mb-6 group-hover:bg-yellow-600/20 transition-colors">
+                        <i data-lucide="crosshair" class="w-8 h-8 text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Semi-Realism</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        We strike the balance between fun and simulation. We use military tactics and structure during operations but keep the atmosphere friendly and relaxed outside of combat.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-[#161817] p-8 border border-gray-800 hover:border-yellow-600/50 transition-colors group">
+                    <div class="bg-yellow-600/10 w-16 h-16 rounded flex items-center justify-center mb-6 group-hover:bg-yellow-600/20 transition-colors">
+                        <i data-lucide="users" class="w-8 h-8 text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Open Community</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Founded in August 2021, we are an open unit primarily based in Sri Lanka. We welcome players of all experience levels who are willing to learn and work as a team.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-[#161817] p-8 border border-gray-800 hover:border-yellow-600/50 transition-colors group">
+                    <div class="bg-yellow-600/10 w-16 h-16 rounded flex items-center justify-center mb-6 group-hover:bg-yellow-600/20 transition-colors">
+                        <i data-lucide="swords" class="w-8 h-8 text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Custom Campaigns</h3>
+                    <p class="text-gray-400 leading-relaxed">
+                        Our Zeus operators craft dynamic, multi-week campaigns. From counter-insurgency in the Middle East to conventional warfare in Eastern Europe.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modpack Section -->
+    <section id="mods" class="py-20 bg-gradient-to-r from-[#141615] to-[#0f1110] border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="md:w-1/2">
+                    <h2 class="font-military text-4xl text-white mb-6">REQUIRED ASSETS</h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        To ensure compatibility and immersion, all operators must subscribe to our official Steam Workshop collection. The pack includes ACE3, TFAR, RHS, and custom unit textures.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i>
+                            <span>Size: Approx. 45GB</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i>
+                            <span>Updated: Jan 02, 2026</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <i data-lucide="check-circle" class="text-green-500 w-5 h-5"></i>
+                            <span>Launcher: HTML Preset Available</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <a href="#" class="inline-flex items-center gap-3 bg-[#171a21] hover:bg-[#2a475e] text-[#66c0f4] hover:text-white px-8 py-4 rounded font-bold transition-all border border-[#66c0f4]/30">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 10.424c-.013-1.424-1.07-2.673-2.483-2.855l-2.02-.261-.318-1.597c-.283-1.425-1.468-2.528-2.903-2.651L14.288 3l-1.092-1.396C12.308.57 11.025.027 9.77.202 8.528.375 7.498 1.258 7.086 2.474L6.44 4.382l-1.99.672C3.125 5.503 2.14 6.716 2.062 8.125c-.067 1.18.595 2.308 1.637 2.946l.012.008 2.026 1.256-.47 1.838c-1.35 5.275 1.765 10.686 7.076 12.043.91.233 1.815.313 2.693.242 4.145-.333 7.556-3.414 8.356-7.55l.504-2.607 1.722-.577c1.192-.4 1.93-1.47 1.948-2.735l-.018.064c-.03-.178-.066-.354-.112-.527zM8.32 17.062c-2.316-.593-3.674-2.952-3.08-5.27.593-2.316 2.952-3.675 5.268-3.082 2.317.594 3.675 2.953 3.082 5.27-.593 2.316-2.953 3.674-5.27 3.08z"/></svg>
+                            STEAM WORKSHOP
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 relative">
+                    <div class="absolute inset-0 bg-yellow-600/20 blur-2xl rounded-full"></div>
+                    <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?q=80&w=2070&auto=format&fit=crop" alt="Arma 3 Mods" class="relative z-10 rounded shadow-2xl border border-gray-700 w-full h-64 md:h-80 object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="shield" class="h-6 w-6 text-yellow-600"></i>
+                    <span class="text-xl font-military text-white tracking-wider">STRANGER<span class="text-yellow-600">COMMUNITY</span></span>
+                </div>
+                
+                <div class="flex gap-6">
+                    <a href="#" class="text-gray-500 hover:text-yellow-500 transition-colors"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-yellow-500 transition-colors"><i data-lucide="youtube"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i data-lucide="message-square"></i></a>
+                </div>
+            </div>
+            
+            <div class="mt-8 border-t border-gray-900 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between text-gray-600 text-sm">
+                <p>&copy; 2026 STRANGER Community. All rights reserved.</p>
+                <p>Not affiliated with Bohemia Interactive. Arma 3 is a registered trademark of Bohemia Interactive.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Copy IP Function
+        function copyIP() {
+            const ip = "play.strangerlk.com";
+            navigator.clipboard.writeText(ip).then(() => {
+                alert("Server IP copied to clipboard: " + ip);
+            });
+        }
+
+        // Smooth Scroll for Anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
